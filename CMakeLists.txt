@@ -1,13 +1,20 @@
 cmake_minimum_required(VERSION 3.18)
 project(GeometryMap)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib/${CMAKE_BUILD_TYPE})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib/${CMAKE_BUILD_TYPE})
+
 set(GLFW_DIR D:/Libraries/glfw-3.4) 
 set(GLEW_DIR D:/Libraries/glew-2.1.0)
 set(3rdParty_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty) 
 
 add_definitions(-DRESOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/resources")
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/glm)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
-
+set_target_properties(glm PROPERTIES FOLDER 3rdParty)
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER CMakeTargets)
 
 
