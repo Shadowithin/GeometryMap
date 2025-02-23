@@ -1,21 +1,22 @@
 set(EXE_NAME GeometryMap)
 
 file(GLOB SOURCES "*.cpp" "*.h")
-add_executable(${EXE_NAME} ${SOURCES})
+file(GLOB SHADERS "*.vert" "*.frag")
+source_group("Shader Files" FILES ${SHADERS})
+add_executable(${EXE_NAME} ${SOURCES} ${SHADERS})
 
 include_directories(
-    ${GLFW_DIR}/include
-    ${GLEW_DIR}/include
-    ${3rdParty_DIR}/glm
     ${3rdParty_DIR}
+    ${3rdParty_DIR}/glew-src/include
+    ${3rdParty_DIR}/stb-src
 )
 
 target_link_libraries(${EXE_NAME}
-optimized ${GLFW_DIR}/build/src/Release/glfw3.lib
-debug  ${GLFW_DIR}/build/src/Debug/glfw3.lib
-optimized ${GLEW_DIR}/lib/Release/x64/glew32s.lib  
-debug  ${GLEW_DIR}/lib/Debug/x64/glew32sd.lib
+glew_s
+glfw
 glm
+assimp
+# opencv_world
 opengl32.lib
 gdi32.lib 
 winmm.lib
