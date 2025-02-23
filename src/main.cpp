@@ -5,6 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <stb_image_write.h>
+
 #include "shader_m.h"
 #include "camera.h"
 #include "model.h"
@@ -132,6 +134,11 @@ int main()
         glfwPollEvents();
     }
 
+    char* data = new char[SCR_WIDTH * SCR_HEIGHT * 4];
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+    glReadPixels(0, 0, SCR_WIDTH, SCR_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    stbi_write_png(RESOURCE_DIR"/map.png", SCR_WIDTH, SCR_HEIGHT, 4, data, 0);
+    delete[] data;
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwTerminate();
